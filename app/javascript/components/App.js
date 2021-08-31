@@ -1,12 +1,17 @@
-import React from "react"
+import React,{Component} from "react"
 import PropTypes from "prop-types"
-class App extends React.Component {
+import Header from "./components/Header"
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+  }
   render () {
     return (
-      <React.Fragment>
-        <h1> This is the app render </h1>
-      </React.Fragment>
-    );
+      <>
+        <Header {...this.props}/>
+      </>
+    )
   }
 }
 
