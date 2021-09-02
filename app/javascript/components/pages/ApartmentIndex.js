@@ -1,48 +1,35 @@
 import React,{Component} from "react"
+import { Card, CardTitle, Col } from 'reactstrap'
 
 class ApartmentIndex extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            apartments: []
-        }
-    }
-    componentDidMount(){
-        this.apartmentIndex()
-    }
-    apartmentIndex = ()=>{
-        fetch("http://localhost:3000/apartments")
-        .then(response => {
-            return response.json()
-        })
-        .then(apartmentArr =>{
-            this.setState({apartments:apartmentArr})
-            // set state of the empty state array with apartment index
-        })
-        .catch(errors => {
-            console.log("INDEX errors: ", errors)
-        })
-    }
+
      render() {
+         console.log(this.props)
          return (
             <>
-            {this.state.apartments.map(apartment => {
-                console.log(apartment.street)
+            {this.props.apartments.map(apartment => {
+                
                 return (
-                <div>
-                    <h1>This is the Description</h1>
-                    <h2>{apartment.description}</h2>
-                    <h1>This is the Location</h1>
-                    {apartment.street}
-                    {apartment.city}    
-                    {apartment.state}   
-                    {apartment.manager}
-                    {apartment.email}
-                    {apartment.price}
-                    {apartment.bedrooms}
-                    {apartment.bathrooms}
-                    <button onClick={() => window.location = `/apartmentshow/${apartment.id}`}>View this apartment</button>            
-                </div>)
+                    <Col sm="6" key={apartment.id}>
+                        
+                        <div>
+                            <h1>This is the Apartment</h1>
+                                <br />
+                                    <Card body>
+                                    <CardTitle>{apartment.description}</CardTitle>
+                                    
+                                    {apartment.street}
+                                    {apartment.city}    
+                                    {apartment.state}   
+                                    {apartment.manager}
+                                    {apartment.email}
+                                    {apartment.price}
+                                    {apartment.bedrooms}
+                                    {apartment.bathrooms}
+                                    <button onClick={() => window.location = `/apartmentshow/${apartment.id}`}>View this apartment</button>            
+                                </Card>
+                        </div>)
+                    </Col>)
             })}
             </>
         )
