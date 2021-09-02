@@ -20,22 +20,35 @@ class ApartmentIndex extends Component {
             // set state of the empty state array with apartment index
         })
         .catch(errors => {
-            console.log("index errors: ", errors)
+            console.log("INDEX errors: ", errors)
         })
     }
      render() {
-         console.log("reached render")
-         console.log(this.state.apartments)
-        return (
+         return (
             <>
             {this.state.apartments.map(apartment => {
                 console.log(apartment.street)
-                return <h3>{JSON.stringify(apartment)}</h3>
+                return (
+                <div>
+                    <h1>This is the Description</h1>
+                    <h2>{apartment.description}</h2>
+                    <h1>This is the Location</h1>
+                    {apartment.street}
+                    {apartment.city}    
+                    {apartment.state}   
+                    {apartment.manager}
+                    {apartment.email}
+                    {apartment.price}
+                    {apartment.bedrooms}
+                    {apartment.bathrooms}
+                    <button onClick={() => window.location = `/apartmentshow/${apartment.id}`}>View this apartment</button>            
+                </div>)
             })}
             </>
         )
     }
 }
+
 
 export default ApartmentIndex
 
