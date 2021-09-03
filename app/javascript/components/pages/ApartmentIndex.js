@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-import { Card, CardTitle, Col } from 'reactstrap'
+import { Card, CardTitle, Col, } from 'reactstrap'
 
 class ApartmentIndex extends Component {
 
@@ -16,8 +16,7 @@ class ApartmentIndex extends Component {
                             <h1>This is the Apartment</h1>
                                 <br />
                                     <Card body>
-                                    <CardTitle>{apartment.description}</CardTitle>
-                                    
+                                    <CardTitle>{apartment.description}</CardTitle>                                   
                                     {apartment.street}
                                     {apartment.city}    
                                     {apartment.state}   

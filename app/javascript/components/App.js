@@ -35,6 +35,31 @@ apartmentIndex = ()=>{
         console.log("INDEX errors: ", errors)
     })
   }
+  createNewApartment = (newapartment) => {
+      console.log(this.props.logged_in)
+      console.log(newapartment)
+      fetch("http://localhost:3000/apartments", {
+      body: JSON.stringify(newapartment),
+      headers: {'Content-Type': 'application/json'},
+      method: "POST"
+    })
+    .then(response => {
+      console.log("response check")
+      if (response.status === 422){
+        alert("Please try again")
+      }
+      return response.json
+    
+      // window.location = "/apartmentindex"
+    })
+    .then(payload => {
+      console.log("payload")
+      return this.apartmentIndex()
+    })
+    .catch(err => {
+      console.log("createnewerror: ", err)
+    })
+  }
   render () {
     return (
  <Router>
@@ -45,7 +70,9 @@ apartmentIndex = ()=>{
     let id = props.match.params.id
     let apartment = this.state.apartments.find(apartment => apartment.id === +id)
     return <ApartmentShow apartment={ apartment } /> }} />
-    <Route path="/apartmentnew" component={ ApartmentNew } />
+    <Route path="/apartmentnew" 
+    render={ (props) => <ApartmentNew createNewApartment={this.createNewApartment} />}
+    />
     <Route path="/apartmentedit/:id" component={ ApartmentEdit } />
      {/* <Route component={ NotFound }/>  */}
   </Switch>

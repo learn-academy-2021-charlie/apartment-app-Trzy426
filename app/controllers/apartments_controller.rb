@@ -5,8 +5,14 @@ class ApartmentsController < ApplicationController
     end
 
     def create
-        apartment = Apartment.create(apartment_params)
-        render json: apartment
+        # :authenticate_user!
+        if current_user
+            apartment = current_user.apartments.create(apartment_params)
+            render json: apartment
+        else 
+            head 401
+        end
+        # render json: apartment
     end
 
     def show
@@ -15,7 +21,12 @@ class ApartmentsController < ApplicationController
     end
     def update
         apartment = Apartment.find(params[:id])
-        apartment.update(apartment_params)
+        :authenticate_user!
+        if current_user.id == apartment.user_id
+            apartment.update(apartment_params)
+        else 
+            head 401
+        end
         render json: apartment
     end
 
